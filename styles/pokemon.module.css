@@ -1,0 +1,11 @@
+.stat {
+	@apply text-lg pl-1 pr-1 sm:pl-0 sm:pr-0;
+}
+
+span.stat {
+	@apply font-semibold;
+}
+
+p.indentStat {
+	@apply stat ml-4;
+}
