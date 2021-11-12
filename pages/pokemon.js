@@ -19,23 +19,20 @@ export default function pokemon({ pokemon }) {
 				</h1>
 				<p className={styles.stat}>
 					<span className={styles.stat}>Weight: </span>
-					{pokemon.weight}g
+					{pokemon.weight}
 				</p>
 				<p className={styles.stat}>
 					<span className={styles.stat}>Height: </span>
-					{pokemon.height}cm
-				</p>
-				<p className={styles.stat}>
-					<span className={styles.stat}>Height: </span>
-					{pokemon.height}g
+					{pokemon.height}
 				</p>
 				<br />
 				<ul>
 					{pokemon.stats.map(({ base_stat, stat, effort }) => {
-						console.log(base_stat, stat, effort);
 						return (
 							<li key={stat.name}>
-								<h3 className="uppercase font-bold">{stat.name}</h3>
+								<h3 className="uppercase font-bold pl-2 pr-2 sm:pl-0 sm:pr-0">
+									{stat.name}
+								</h3>
 								<p className={styles.indentStat}>
 									<span className={styles.stat}>Base Stat: </span>
 									{base_stat}
@@ -58,7 +55,6 @@ export async function getServerSideProps({ query }) {
 	const id = query.id;
 	let pokemon = {};
 	try {
-		console.log(id);
 		const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
 		pokemon = await res.json();
 		const paddedIndex = ('00' + id).slice(-3);
