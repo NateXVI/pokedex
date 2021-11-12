@@ -1,0 +1,16 @@
+.text {
+	@apply text-blue-700;
+}
+
+a.text {
+	text-decoration: underline;
+}
+
+span.text {
+	@apply p-2;
+}
+
+.button {
+	box-sizing: border-box;
+	@apply text-white pl-3 pr-3 p-1 rounded-md bg-blue-600 hover:bg-blue-700 w-16 text-center;
+}
