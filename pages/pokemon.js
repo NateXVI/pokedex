@@ -44,7 +44,7 @@ export default function pokemon({ pokemon }) {
 						</p>
 					</div>
 				</div>
-				<Sprites sprites={spritesSrc} />
+				<Sprites source={spritesSrc} />
 
 				<br />
 			</div>
