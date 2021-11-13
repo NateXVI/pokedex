@@ -4,9 +4,9 @@ import Image from 'next/Image';
 export default function Sprites({ source }) {
 	return (
 		<div className="main">
-			{source.map((value) => {
+			{source.map((value, index) => {
 				return (
-					<Link href={value}>
+					<Link key={index} href={value}>
 						<a>
 							<img src={value} width="100px" height="100px" />
 						</a>
