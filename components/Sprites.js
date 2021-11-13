@@ -1,11 +1,10 @@
 import Link from 'next/link';
 import Image from 'next/Image';
 
-export default function Sprites({ sprites }) {
-	console.log(sprites);
+export default function Sprites({ source }) {
 	return (
 		<div className="main">
-			{sprites.map((value) => {
+			{source.map((value) => {
 				return (
 					<Link href={value}>
 						<a>
