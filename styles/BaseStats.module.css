@@ -1,0 +1,14 @@
+.main {
+	display: grid;
+	grid-template-columns: 70px min-content 1fr;
+	align-items: center;
+	/* display: flex;
+    justify-content: center; */
+}
+
+.progress {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border-radius: 123123px;
+}

@@ -2,6 +2,7 @@ import Layout from '../components/Layout';
 import Link from 'next/link';
 import styles from '../styles/pokemon.module.css';
 import Types from '../components/Types';
+import BaseStats from '../components/BaseStats';
 
 export default function pokemon({ pokemon }) {
 	return (
@@ -18,6 +19,7 @@ export default function pokemon({ pokemon }) {
 					{pokemon.name}
 				</h1>
 				<Types types={pokemon.types} />
+				<BaseStats stats={pokemon.stats} />
 				<p className={styles.stat}>
 					<span className={styles.stat}>Weight: </span>
 					{pokemon.weight}
@@ -28,26 +30,6 @@ export default function pokemon({ pokemon }) {
 				</p>
 
 				<br />
-				<ul>
-					{pokemon.stats.map(({ base_stat, stat, effort }) => {
-						return (
-							<li key={stat.name}>
-								<h3 className="uppercase font-bold pl-2 pr-2 sm:pl-0 sm:pr-0">
-									{stat.name}
-								</h3>
-								<p className={styles.indentStat}>
-									<span className={styles.stat}>Base Stat: </span>
-									{base_stat}
-								</p>
-								<p className={styles.indentStat}>
-									<span className={styles.stat}>Effort: </span>
-									{effort}
-								</p>
-								<br />
-							</li>
-						);
-					})}
-				</ul>
 			</div>
 		</div>
 	);
