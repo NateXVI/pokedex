@@ -3,7 +3,6 @@ import Link from 'next/link';
 import styles from '../styles/pokemon.module.css';
 
 export default function pokemon({ pokemon }) {
-	console.log(pokemon);
 	return (
 		<div className="bg-gray-300">
 			<div className="container w-full mx-auto sm:max-w-xl pt-0 min-h-screen sm:pt-8">
@@ -24,6 +23,18 @@ export default function pokemon({ pokemon }) {
 				<p className={styles.stat}>
 					<span className={styles.stat}>Height: </span>
 					{pokemon.height}
+				</p>
+				<p className={styles.stat}>
+					<span className={styles.stat}>Type{pokemon.types.length > 1 ? 's' : ''}: </span>
+					{pokemon.types.map(({ type }, index) => {
+						console.log(type, index);
+						let str = `${type.name}`;
+						if (index < pokemon.types.length - 1) {
+							str += ', ';
+						}
+
+						return str;
+					})}
 				</p>
 				<br />
 				<ul>
