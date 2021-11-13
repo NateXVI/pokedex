@@ -7,10 +7,9 @@ import Head from 'next/head';
 import Sprites from '../components/Sprites';
 
 export default function pokemon({ pokemon }) {
-	const sprites = Object.values(pokemon.sprites).filter((value) => {
+	const spritesSrc = Object.values(pokemon.sprites).filter((value) => {
 		return typeof value == 'string';
 	});
-	console.log(pokemon, sprites);
 
 	return (
 		<div className="bg-gray-300">
@@ -45,7 +44,7 @@ export default function pokemon({ pokemon }) {
 						</p>
 					</div>
 				</div>
-				<Sprites sprites={sprites} />
+				<Sprites sprites={spritesSrc} />
 
 				<br />
 			</div>
