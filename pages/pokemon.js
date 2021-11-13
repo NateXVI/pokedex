@@ -1,6 +1,7 @@
 import Layout from '../components/Layout';
 import Link from 'next/link';
 import styles from '../styles/pokemon.module.css';
+import Types from '../components/Types';
 
 export default function pokemon({ pokemon }) {
 	return (
@@ -16,6 +17,7 @@ export default function pokemon({ pokemon }) {
 				<h1 className="sm:m-0 sm:w-full text-4xl mb-2 text-center capitalize p-1">
 					{pokemon.name}
 				</h1>
+				<Types types={pokemon.types} />
 				<p className={styles.stat}>
 					<span className={styles.stat}>Weight: </span>
 					{pokemon.weight}
@@ -24,18 +26,7 @@ export default function pokemon({ pokemon }) {
 					<span className={styles.stat}>Height: </span>
 					{pokemon.height}
 				</p>
-				<p className={styles.stat}>
-					<span className={styles.stat}>Type{pokemon.types.length > 1 ? 's' : ''}: </span>
-					{pokemon.types.map(({ type }, index) => {
-						console.log(type, index);
-						let str = `${type.name}`;
-						if (index < pokemon.types.length - 1) {
-							str += ', ';
-						}
 
-						return str;
-					})}
-				</p>
 				<br />
 				<ul>
 					{pokemon.stats.map(({ base_stat, stat, effort }) => {
