@@ -1,9 +1,9 @@
 .stat {
-	@apply text-lg pl-1 pr-1 sm:pl-0 sm:pr-0;
+	@apply text-gray-900 font-semibold;
 }
 
 span.stat {
-	@apply font-semibold;
+	@apply text-gray-600 font-normal;
 }
 
 p.indentStat {
