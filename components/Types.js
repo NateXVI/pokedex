@@ -19,10 +19,10 @@ export default function Types({ types }) {
 						className={`p-1 flex-col justify-center items-center relative ${styles.container}`}
 					>
 						<Image
-							src={`/../public/types/${type.name}.svg`}
+							src={`/types/${type.name}.svg`}
 							width="30"
 							height="30"
-							className={`"block self-center ${styles.img} hover:border-blue-700"`}
+							className="block self-center"
 							alt={type.name}
 						></Image>
 					</div>
