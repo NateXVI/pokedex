@@ -1,13 +1,8 @@
 import styles from '../styles/BaseStats.module.css';
 
 export default function BaseStats({ stats }) {
-	let w = (stats[0].base_stat / 150) * 100;
-	console.log('stats', stats, w);
-	const progress = {
-		width: `${Math.round(stats[0].base_stat / 150)}`,
-	};
 	return (
-		<div className="bg-gray-100 p-2 rounded-md m-3">
+		<div className="bg-gray-100 p-2 rounded-md sm:shadow-inner">
 			<div className={`${styles.main}`}>
 				{stats.map((stat) => {
 					const name = stat.stat.name;
