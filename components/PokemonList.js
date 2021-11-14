@@ -6,7 +6,6 @@ import Image from 'next/image';
 import Types from './Types';
 
 export default function PokemonList({ pokemon, offset }) {
-	console.log(pokemon);
 	return (
 		<Fragment>
 			{pokemon.map((value, index) => {
@@ -20,20 +19,18 @@ export default function PokemonList({ pokemon, offset }) {
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
-function PokemonThumbnail({ pokemon, index }) {
+function PokemonThumbnail({ pokemon }) {
 	const { data, error } = useSWR(pokemon.url, fetcher);
-	setTimeout(() => {
-		console.log(data);
-	}, 1000);
+
 	return (
 		<div className="container">
-			<Link href={{ pathname: '/pokemon', query: { id: index } }}>
+			<Link href={{ pathname: '/pokemon', query: { id: data?.id } }}>
 				<a>
 					<div className="m-2 bg-gray-200 p-4 rounded-md flex shadow-2xl">
 						<div className="w-52">
 							<img src={pokemon.image} className="h-20 w-20 sm:h-28 sm:w-28" />
 							<p className="capitalize">
-								<span className="text-sm text-gray-500 pr-px">#{index}</span>
+								<span className="text-sm text-gray-500 pr-px">#{data?.id}</span>
 								<span className="capitalize font-bold text-lg">
 									{capitalize(pokemon.name)}
 								</span>
@@ -81,16 +78,16 @@ function PokemonThumbnail({ pokemon, index }) {
 							)}
 							{!!!data ? (
 								<div>
-									<div key={index} className="m-2">
+									<div className="m-2">
 										<RandomStatBar color="bg-green-500" />
 									</div>
-									<div key={index} className="m-2">
+									<div className="m-2">
 										<RandomStatBar color="bg-red-500" />
 									</div>
-									<div key={index} className="m-2">
+									<div className="m-2">
 										<RandomStatBar color="bg-blue-500" />
 									</div>
-									<div key={index} className="m-2">
+									<div className="m-2">
 										<RandomStatBar color="bg-yellow-500" />
 									</div>
 								</div>
@@ -106,7 +103,7 @@ function PokemonThumbnail({ pokemon, index }) {
 }
 
 function RandomStatBar({ color }) {
-	const percent = Math.random() * 75;
+	const percent = Math.round(Math.random() * 75);
 
 	return <StatsBar color={color} percent={percent}></StatsBar>;
 }
