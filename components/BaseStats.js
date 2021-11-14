@@ -32,17 +32,23 @@ export default function BaseStats({ stats }) {
 							<p className="w-min px-2 py-1 uppercase">{name}</p>
 							<p className="w-min px-2 py-1 text-right font-semibold">{base_stat}</p>
 							<div className="container flex justify-end">
-								<div className="container max-w-sm bg-white border-2 border-black rounded-full overflow-hidden">
-									<div
-										className={`progress h-2 bg-red-500 ${color} self-center`}
-										style={{ width: `${percent}%` }}
-									></div>
-								</div>
+								<StatsBar color={color} percent={percent} />
 							</div>
 						</Fragment>
 					);
 				})}
 			</div>
+		</div>
+	);
+}
+
+export function StatsBar({ color, percent }) {
+	return (
+		<div className="container max-w-sm bg-white border-2 border-black rounded-full overflow-hidden">
+			<div
+				className={`progress h-2 bg-red-500 ${color} self-center`}
+				style={{ width: `${percent}%` }}
+			></div>
 		</div>
 	);
 }
