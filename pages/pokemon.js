@@ -33,7 +33,7 @@ export default function pokemon({ pokemon }) {
 				<Types types={pokemon.types} />
 				<div className="bg-gray-100 m-1 sm:p-2 rounded-md">
 					<BaseStats stats={pokemon.stats} />
-					<br />
+					<div className="h-1 w-full"></div>
 					<OtherStats weight={pokemon.weight} height={pokemon.height} />
 				</div>
 				<Sprites source={spritesSrc} />
