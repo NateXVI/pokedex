@@ -2,10 +2,22 @@ import Layout from '../components/Layout';
 import Link from 'next/link';
 import styles from '../styles/pokemon.module.css';
 import Types from '../components/Types';
+import BaseStats from '../components/BaseStats';
+import Head from 'next/head';
+import Sprites from '../components/Sprites';
 
 export default function pokemon({ pokemon }) {
+	const spritesSrc = Object.values(pokemon.sprites).filter((value) => {
+		return typeof value == 'string';
+	});
+
 	return (
 		<div className="bg-gray-300">
+			<Head>
+				<title>
+					#{pokemon.id} - {pokemon.name}
+				</title>
+			</Head>
 			<div className="container w-full mx-auto sm:max-w-xl pt-0 min-h-screen sm:pt-8">
 				<div className="sm:bg-transparent bg-white container w-full sm:w-auto m-auto left-0 h-60 sm:h-auto ">
 					<img
@@ -18,36 +30,23 @@ export default function pokemon({ pokemon }) {
 					{pokemon.name}
 				</h1>
 				<Types types={pokemon.types} />
-				<p className={styles.stat}>
-					<span className={styles.stat}>Weight: </span>
-					{pokemon.weight}
-				</p>
-				<p className={styles.stat}>
-					<span className={styles.stat}>Height: </span>
-					{pokemon.height}
-				</p>
+				<div className="bg-gray-100 m-1 sm:p-2 rounded-md">
+					<BaseStats stats={pokemon.stats} />
+					<br />
+					<div className="sm:px-4 px-2 pb-2 sm:shadow-inner rounded-md">
+						<p className={styles.stat}>
+							<span className={styles.stat}>Weight: </span>
+							{pokemon.weight}
+						</p>
+						<p className={styles.stat}>
+							<span className={styles.stat}>Height: </span>
+							{pokemon.height}
+						</p>
+					</div>
+				</div>
+				<Sprites source={spritesSrc} />
 
 				<br />
-				<ul>
-					{pokemon.stats.map(({ base_stat, stat, effort }) => {
-						return (
-							<li key={stat.name}>
-								<h3 className="uppercase font-bold pl-2 pr-2 sm:pl-0 sm:pr-0">
-									{stat.name}
-								</h3>
-								<p className={styles.indentStat}>
-									<span className={styles.stat}>Base Stat: </span>
-									{base_stat}
-								</p>
-								<p className={styles.indentStat}>
-									<span className={styles.stat}>Effort: </span>
-									{effort}
-								</p>
-								<br />
-							</li>
-						);
-					})}
-				</ul>
 			</div>
 		</div>
 	);
