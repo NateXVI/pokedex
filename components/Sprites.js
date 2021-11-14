@@ -1,9 +1,8 @@
 import Link from 'next/link';
-import styles from '../styles/Sprites.module.css';
 
 export default function Sprites({ source }) {
 	return (
-		<div className={styles.main}>
+		<div className="main">
 			{source.map((value, index) => {
 				return (
 					<Link key={index} href={value}>
