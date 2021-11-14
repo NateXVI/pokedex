@@ -5,6 +5,7 @@ import Types from '../components/Types';
 import BaseStats from '../components/BaseStats';
 import Head from 'next/head';
 import Sprites from '../components/Sprites';
+import OtherStats from '../components/OtherStats';
 
 export default function pokemon({ pokemon }) {
 	const spritesSrc = Object.values(pokemon.sprites).filter((value) => {
@@ -33,16 +34,7 @@ export default function pokemon({ pokemon }) {
 				<div className="bg-gray-100 m-1 sm:p-2 rounded-md">
 					<BaseStats stats={pokemon.stats} />
 					<br />
-					<div className="sm:px-4 px-2 pb-2 sm:shadow-inner rounded-md">
-						<p className={styles.stat}>
-							<span className={styles.stat}>Weight: </span>
-							{pokemon.weight}
-						</p>
-						<p className={styles.stat}>
-							<span className={styles.stat}>Height: </span>
-							{pokemon.height}
-						</p>
-					</div>
+					<OtherStats weight={pokemon.weight} height={pokemon.height} />
 				</div>
 				<Sprites source={spritesSrc} />
 
