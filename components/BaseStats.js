@@ -11,10 +11,6 @@ export default function BaseStats({ stats }) {
 					const percent = (base_stat / 150) * 100;
 					let color;
 					switch (name) {
-						case 'special-attack':
-						case 'special-defense':
-							return;
-							break;
 						case 'hp':
 							color = 'bg-green-500';
 							break;
@@ -26,6 +22,10 @@ export default function BaseStats({ stats }) {
 							break;
 						case 'speed':
 							color = 'bg-yellow-500';
+							break;
+						default:
+							return;
+							break;
 					}
 					return (
 						<Fragment key={name}>
