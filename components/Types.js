@@ -2,7 +2,6 @@ import Image from 'next/image';
 import styles from '../styles/Types.module.css';
 
 export default function Types({ types }) {
-	console.log(types);
 	types = types.map((v) => {
 		return {
 			name: v.type.name,
