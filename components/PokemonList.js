@@ -2,15 +2,17 @@ import { Fragment } from 'react';
 import useSWR from 'swr';
 import BaseStats, { StatsBar } from './BaseStats';
 import Link from 'next/link';
+import Image from 'next/image';
+import Types from './Types';
 
 export default function PokemonList({ pokemon, offset }) {
 	console.log(pokemon);
 	return (
 		<Fragment>
 			{pokemon.map((value, index) => {
-				return (
-					<PokemonThumbnail pokemon={value} index={index + 1 + offset} key={index} />
-				);
+				const pokemonIndex = index + 1 + offset;
+				if (pokemonIndex > 898) return;
+				return <PokemonThumbnail pokemon={value} index={pokemonIndex} key={index} />;
 			})}
 		</Fragment>
 	);
@@ -27,7 +29,7 @@ function PokemonThumbnail({ pokemon, index }) {
 		<div className="container">
 			<Link href={{ pathname: '/pokemon', query: { id: index } }}>
 				<a>
-					<div className="m-2 bg-white p-4 rounded-md flex">
+					<div className="m-2 bg-gray-200 p-4 rounded-md flex shadow-2xl">
 						<div className="w-52">
 							<img src={pokemon.image} className="h-20 w-20 sm:h-28 sm:w-28" />
 							<p className="capitalize">
@@ -63,27 +65,32 @@ function PokemonThumbnail({ pokemon, index }) {
 												break;
 										}
 										return (
-											<div key={index} className="m-1">
+											<div key={index} className="m-2">
 												<StatsBar color={color} percent={percent} />
 											</div>
 										);
 									})}
+									<div className="h-full w-full grid grid-cols-3 mt-3 place-items-center">
+										<Stat icon="/icons/weight.png" value={data.weight} />
+										<Stat icon="/icons/ruler.png" value={data.height} />
+										<Types types={data.types} />
+									</div>
 								</div>
 							) : (
 								<Fragment></Fragment>
 							)}
 							{!!!data ? (
 								<div>
-									<div key={index} className="m-1">
+									<div key={index} className="m-2">
 										<RandomStatBar color="bg-green-500" />
 									</div>
-									<div key={index} className="m-1">
+									<div key={index} className="m-2">
 										<RandomStatBar color="bg-red-500" />
 									</div>
-									<div key={index} className="m-1">
+									<div key={index} className="m-2">
 										<RandomStatBar color="bg-blue-500" />
 									</div>
-									<div key={index} className="m-1">
+									<div key={index} className="m-2">
 										<RandomStatBar color="bg-yellow-500" />
 									</div>
 								</div>
@@ -106,4 +113,17 @@ function RandomStatBar({ color }) {
 
 function capitalize(str) {
 	return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function Stat({ icon, value }) {
+	return (
+		<div className="flex items-center h-1/2">
+			<div className="">
+				<Image src={icon} width="25" height="25" className=""></Image>
+			</div>
+			<div className="">
+				<p className="">{value}</p>
+			</div>
+		</div>
+	);
 }
