@@ -4,8 +4,9 @@ import styles from '../styles/Home.module.css';
 import Layout from '../components/Layout';
 import Link from 'next/link';
 import PageSelector from '../components/PageSelector';
+import PokemonList from '../components/PokemonList';
 
-const itemsPerPage = 20;
+const itemsPerPage = 10;
 const totalItems = 898;
 const totalPages = Math.ceil(totalItems / itemsPerPage);
 
@@ -14,26 +15,9 @@ export default function Home({ pokemon, page, offset }) {
 		<Layout title="Pokedex">
 			<h1 className="text-4xl mb-8 text-center pt-20 pb-16">Next.js Pokedex</h1>
 			<PageSelector path="/" currentPage={page} maxPage={totalPages}></PageSelector>
-			<ul>
-				{pokemon.map((pokemon, index) => {
-					if (index + offset >= totalItems) return;
-					return (
-						<li key={index}>
-							<Link href={{ pathname: '/pokemon', query: { id: index + 1 + offset } }}>
-								<a className="border p-4 border-gray my-2 capitalize flex items-center text-lg bg-gray-200 rounded-md">
-									<img
-										className="w-20 h-20 mr-3"
-										src={pokemon.image}
-										alt={pokemon.name}
-									/>
-									<span className="mr-2 font-bold">{index + 1 + offset}.</span>
-									{pokemon.name}
-								</a>
-							</Link>
-						</li>
-					);
-				})}
-			</ul>
+			<div className="container grid grid-cols-1 md:grid-cols-2">
+				<PokemonList pokemon={pokemon} offset={offset} />
+			</div>
 			<PageSelector path="/" currentPage={page} maxPage={totalPages}></PageSelector>
 			<footer className="w-full h-20"></footer>
 		</Layout>

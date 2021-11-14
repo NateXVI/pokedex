@@ -1,0 +1,129 @@
+import { Fragment } from 'react';
+import useSWR from 'swr';
+import BaseStats, { StatsBar } from './BaseStats';
+import Link from 'next/link';
+import Image from 'next/image';
+import Types from './Types';
+
+export default function PokemonList({ pokemon, offset }) {
+	console.log(pokemon);
+	return (
+		<Fragment>
+			{pokemon.map((value, index) => {
+				const pokemonIndex = index + 1 + offset;
+				if (pokemonIndex > 898) return;
+				return <PokemonThumbnail pokemon={value} index={pokemonIndex} key={index} />;
+			})}
+		</Fragment>
+	);
+}
+
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
+
+function PokemonThumbnail({ pokemon, index }) {
+	const { data, error } = useSWR(pokemon.url, fetcher);
+	setTimeout(() => {
+		console.log(data);
+	}, 1000);
+	return (
+		<div className="container">
+			<Link href={{ pathname: '/pokemon', query: { id: index } }}>
+				<a>
+					<div className="m-2 bg-gray-200 p-4 rounded-md flex shadow-2xl">
+						<div className="w-52">
+							<img src={pokemon.image} className="h-20 w-20 sm:h-28 sm:w-28" />
+							<p className="capitalize">
+								<span className="text-sm text-gray-500 pr-px">#{index}</span>
+								<span className="capitalize font-bold text-lg">
+									{capitalize(pokemon.name)}
+								</span>
+							</p>
+						</div>
+						<div className="container">
+							{!!data ? (
+								<div className="">
+									{data.stats.map((stat, index) => {
+										const name = stat.stat.name;
+										const base_stat = stat.base_stat;
+										const percent = (base_stat / 150) * 100;
+										let color;
+										switch (name) {
+											case 'hp':
+												color = 'bg-green-500';
+												break;
+											case 'attack':
+												color = 'bg-red-500';
+												break;
+											case 'defense':
+												color = 'bg-blue-500';
+												break;
+											case 'speed':
+												color = 'bg-yellow-500';
+												break;
+											default:
+												return;
+												break;
+										}
+										return (
+											<div key={index} className="m-2">
+												<StatsBar color={color} percent={percent} />
+											</div>
+										);
+									})}
+									<div className="h-full w-full grid grid-cols-3 mt-3 place-items-center">
+										<Stat icon="/icons/weight.png" value={data.weight} />
+										<Stat icon="/icons/ruler.png" value={data.height} />
+										<Types types={data.types} />
+									</div>
+								</div>
+							) : (
+								<Fragment></Fragment>
+							)}
+							{!!!data ? (
+								<div>
+									<div key={index} className="m-2">
+										<RandomStatBar color="bg-green-500" />
+									</div>
+									<div key={index} className="m-2">
+										<RandomStatBar color="bg-red-500" />
+									</div>
+									<div key={index} className="m-2">
+										<RandomStatBar color="bg-blue-500" />
+									</div>
+									<div key={index} className="m-2">
+										<RandomStatBar color="bg-yellow-500" />
+									</div>
+								</div>
+							) : (
+								<Fragment></Fragment>
+							)}
+						</div>
+					</div>
+				</a>
+			</Link>
+		</div>
+	);
+}
+
+function RandomStatBar({ color }) {
+	const percent = Math.random() * 75;
+
+	return <StatsBar color={color} percent={percent}></StatsBar>;
+}
+
+function capitalize(str) {
+	return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function Stat({ icon, value }) {
+	return (
+		<div className="flex items-center h-1/2">
+			<div className="">
+				<Image src={icon} width="25" height="25" className=""></Image>
+			</div>
+			<div className="">
+				<p className="">{value}</p>
+			</div>
+		</div>
+	);
+}
