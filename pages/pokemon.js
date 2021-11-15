@@ -17,7 +17,6 @@ export default function pokemon({ pokemon }) {
 		return value.version.name;
 	});
 
-	console.log(games);
 	return (
 		<div className="bg-gray-300">
 			<Head>
@@ -34,7 +33,8 @@ export default function pokemon({ pokemon }) {
 					/>
 				</div>
 				<h1 className="sm:m-0 sm:w-full text-4xl mb-2 text-center capitalize p-1">
-					{pokemon.name}
+					<span className="text-2xl text-gray-500 pr-px">#{pokemon.id}</span>
+					{capitalize(pokemon.name)}
 				</h1>
 				<Types types={pokemon.types} />
 				<div className="bg-gray-100 m-1 sm:p-2 rounded-md">
@@ -68,4 +68,8 @@ export async function getServerSideProps({ query }) {
 			pokemon,
 		},
 	};
+}
+
+function capitalize(str) {
+	return str.charAt(0).toUpperCase() + str.slice(1);
 }
