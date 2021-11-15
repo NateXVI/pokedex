@@ -29,16 +29,18 @@ function PokemonThumbnail({ pokemon }) {
 					<div className="m-2 bg-gray-200 p-4 rounded-md flex shadow-2xl">
 						<div className="w-52">
 							<img src={pokemon.image} className="h-20 w-20 sm:h-28 sm:w-28" />
-							<p className="capitalize">
-								<span className="text-sm text-gray-500 pr-px">#{data?.id}</span>
-								<span className="capitalize font-bold text-lg">
-									{capitalize(pokemon.name)}
-								</span>
-							</p>
+							<div className="pt-4">
+								<p className="capitalize">
+									<span className="text-sm text-gray-500 pr-px">#{data?.id}</span>
+									<span className="capitalize font-bold text-lg">
+										{capitalize(pokemon.name)}
+									</span>
+								</p>
+							</div>
 						</div>
 						<div className="container">
 							{!!data ? (
-								<div className="">
+								<div className="sm:pt-4">
 									{data.stats.map((stat, index) => {
 										const name = stat.stat.name;
 										const base_stat = stat.base_stat;
@@ -67,7 +69,7 @@ function PokemonThumbnail({ pokemon }) {
 											</div>
 										);
 									})}
-									<div className="h-full w-full grid grid-cols-3 mt-3 place-items-center">
+									<div className="h-full w-full grid grid-cols-3 mt-3 sm:pt-3.5 place-items-center">
 										<Stat icon="/icons/weight.png" value={data.weight} />
 										<Stat icon="/icons/ruler.png" value={data.height} />
 										<Types types={data.types} />
