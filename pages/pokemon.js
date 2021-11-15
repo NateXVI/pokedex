@@ -6,12 +6,18 @@ import BaseStats from '../components/BaseStats';
 import Head from 'next/head';
 import Sprites from '../components/Sprites';
 import OtherStats from '../components/OtherStats';
+import GameCovers from '../components/GameCovers';
 
 export default function pokemon({ pokemon }) {
 	const spritesSrc = Object.values(pokemon.sprites).filter((value) => {
 		return typeof value == 'string';
 	});
 
+	const games = pokemon.game_indices.map((value) => {
+		return value.version.name;
+	});
+
+	console.log(games);
 	return (
 		<div className="bg-gray-300">
 			<Head>
@@ -37,7 +43,7 @@ export default function pokemon({ pokemon }) {
 					<OtherStats weight={pokemon.weight} height={pokemon.height} />
 				</div>
 				<Sprites source={spritesSrc} />
-
+				<GameCovers games={games} />
 				<br />
 			</div>
 		</div>
