@@ -6,10 +6,15 @@ import BaseStats from '../components/BaseStats';
 import Head from 'next/head';
 import Sprites from '../components/Sprites';
 import OtherStats from '../components/OtherStats';
+import GameCovers from '../components/GameCovers';
 
 export default function pokemon({ pokemon }) {
 	const spritesSrc = Object.values(pokemon.sprites).filter((value) => {
 		return typeof value == 'string';
+	});
+
+	const games = pokemon.game_indices.map((value) => {
+		return value.version.name;
 	});
 
 	return (
@@ -28,7 +33,8 @@ export default function pokemon({ pokemon }) {
 					/>
 				</div>
 				<h1 className="sm:m-0 sm:w-full text-4xl mb-2 text-center capitalize p-1">
-					{pokemon.name}
+					<span className="text-2xl text-gray-500 pr-px">#{pokemon.id}</span>
+					{capitalize(pokemon.name)}
 				</h1>
 				<Types types={pokemon.types} />
 				<div className="bg-gray-100 m-1 sm:p-2 rounded-md">
@@ -37,7 +43,7 @@ export default function pokemon({ pokemon }) {
 					<OtherStats weight={pokemon.weight} height={pokemon.height} />
 				</div>
 				<Sprites source={spritesSrc} />
-
+				<GameCovers games={games} />
 				<br />
 			</div>
 		</div>
@@ -62,4 +68,8 @@ export async function getServerSideProps({ query }) {
 			pokemon,
 		},
 	};
+}
+
+function capitalize(str) {
+	return str.charAt(0).toUpperCase() + str.slice(1);
 }

@@ -5,7 +5,7 @@ export default function BaseStats({ stats }) {
 	return (
 		<div className="bg-gray-100 p-2 rounded-md sm:shadow-inner">
 			<div className={`${styles.main}`}>
-				{stats.map((stat, index) => {
+				{stats.map((stat) => {
 					const name = stat.stat.name;
 					const base_stat = stat.base_stat;
 					const percent = (base_stat / 150) * 100;
