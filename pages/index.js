@@ -13,25 +13,17 @@ const totalPages = Math.ceil(totalItems / itemsPerPage);
 export default function Home({ pokemon, page, offset }) {
 	return (
 		<Layout title="Pokedex">
-			<h1 className="text-4xl mb-8 text-center pt-20 pb-16">
-				Next.js Pokedex
-			</h1>
-			<div className="flex p-2 sm:p-1">
-				<PageNavigator
-					path="/"
-					currentPage={page}
-					maxPage={totalPages}
-				/>
-				<PageSelector
-					path="/"
-					maxPage={totalPages}
-					currentPage={page}
-				/>
+			<h1 className="text-4xl mb-8 text-center pt-20 pb-16">Next.js Pokedex</h1>
+			<div className="flex justify-between p-2 sm:p-1 items-center">
+				<PageNavigator path="/" currentPage={page} maxPage={totalPages} />
+				<PageSelector path="/" maxPage={totalPages} currentPage={page} />
 			</div>
 			<div className="container grid grid-cols-1 md:grid-cols-2">
 				<PokemonList pokemon={pokemon} offset={offset} />
 			</div>
-			<PageNavigator path="/" currentPage={page} maxPage={totalPages} />
+			<div className="flex w-full justify-center">
+				<PageNavigator path="/" currentPage={page} maxPage={totalPages} />
+			</div>
 			<footer className="w-full h-20"></footer>
 		</Layout>
 	);

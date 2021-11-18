@@ -31,10 +31,7 @@ export default function PageSelector({ path, maxPage, currentPage }) {
 				onChange={(e) => setInput(e.target.value)}
 				className="h-10 px-2 sm:px-4 rounded-l-md"
 			/>
-			<button
-				className="bg-blue-600 text-white h-10 w-16 rounded-r-md"
-				onClick={goTo}
-			>
+			<button className="bg-blue-600 text-white h-10 w-16 rounded-r-md" onClick={goTo}>
 				Go To
 			</button>
 		</div>
@@ -42,35 +39,32 @@ export default function PageSelector({ path, maxPage, currentPage }) {
 }
 
 export function PageNavigator({ path, currentPage, maxPage }) {
+	function goTo(page) {
+		page = Math.max(1, page);
+		page = Math.min(maxPage, page);
+		if (process.browser) router.push(`${path}?page=${page}`);
+	}
+
 	return (
-		<div className="w-full">
-			<div className="flex m-auto sm:m-0">
+		<div className="">
+			<div className="flex h-10">
 				{currentPage > 1 ? (
-					<Link
-						href={{
-							pathname: path,
-							query: { page: currentPage - 1 },
-						}}
-					>
-						<a className={styles.button}>{`Back`}</a>
-					</Link>
+					<button
+						onClick={() => goTo(Number(currentPage) - 1)}
+						className={`${styles.button} rounded-l-md`}
+					>{`Back`}</button>
 				) : (
 					<></>
 				)}
-
-				<p className="text-blue-700 m-1 p-0.5 pl-1 pr-1 font-semibold bg-white">
-					page {currentPage}
-				</p>
+				<div className="grid place-items-center h-10 bg-white">
+					<p className="px-1 bg-white sm:px-4 text-center">page {currentPage}</p>
+				</div>
 
 				{currentPage < maxPage ? (
-					<Link
-						href={{
-							pathname: path,
-							query: { page: Number(currentPage) + 1 },
-						}}
-					>
-						<a className={styles.button}>{`Next`}</a>
-					</Link>
+					<button
+						onClick={() => goTo(Number(currentPage) + 1)}
+						className={`${styles.button} rounded-r-md`}
+					>{`Next`}</button>
 				) : (
 					<></>
 				)}
