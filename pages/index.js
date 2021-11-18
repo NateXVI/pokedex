@@ -5,12 +5,17 @@ import Layout from '../components/Layout';
 import Link from 'next/link';
 import PageSelector, { PageNavigator } from '../components/PageSelector';
 import PokemonList from '../components/PokemonList';
+import { useEffect } from 'react';
 
 const itemsPerPage = 10;
 const totalItems = 898;
 const totalPages = Math.ceil(totalItems / itemsPerPage);
 
 export default function Home({ pokemon, page, offset }) {
+	useEffect(() => {
+		sessionStorage.setItem('recent page', page);
+	});
+
 	return (
 		<Layout title="Pokedex">
 			<h1 className="text-4xl mb-8 text-center pt-20 pb-16">Next.js Pokedex</h1>
