@@ -79,7 +79,7 @@ function PokemonThumbnail({ pokemon }) {
 								<Fragment></Fragment>
 							)}
 							{!!!data ? (
-								<div>
+								<div className="pt-4">
 									<div className="m-2">
 										<RandomStatBar color="bg-green-500" />
 									</div>
