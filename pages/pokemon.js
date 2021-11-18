@@ -7,6 +7,7 @@ import Head from 'next/head';
 import Sprites from '../components/Sprites';
 import OtherStats from '../components/OtherStats';
 import GameCovers from '../components/GameCovers';
+import BackButton from '../components/BackButton';
 
 export default function pokemon({ pokemon }) {
 	const spritesSrc = Object.values(pokemon.sprites).filter((value) => {
@@ -25,6 +26,7 @@ export default function pokemon({ pokemon }) {
 				</title>
 			</Head>
 			<div className="container w-full mx-auto sm:max-w-xl pt-0 min-h-screen sm:pt-8">
+				<BackButton />
 				<div className="sm:bg-transparent bg-white container w-full sm:w-auto m-auto left-0 h-60 sm:h-auto ">
 					<img
 						className="m-auto rounded-3xl h-full object-cover sm:w-auto sm:bg-white sm:shadow-md"
