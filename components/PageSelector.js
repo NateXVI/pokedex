@@ -8,7 +8,7 @@ export default function PageSelector({ path, maxPage, currentPage }) {
 
 	function goTo() {
 		if (pageInput != currentPage) {
-			router.push(`${path}?page=${pageInput}`);
+			router.push(`${path}${pageInput}`);
 		}
 	}
 
@@ -48,7 +48,7 @@ export function PageNavigator({ path, currentPage, maxPage }) {
 		page = Math.max(1, page);
 		page = Math.min(maxPage, page);
 		if (process.browser && page != currentPage) {
-			router.push(`${path}?page=${page}`);
+			router.push(`${path}${page}`);
 		}
 	}
 
