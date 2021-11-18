@@ -7,10 +7,10 @@ export default function BackButton() {
 	}
 
 	return (
-		<div className="bg-none w-full">
+		<div className="fixed sm:relative">
 			<button
 				onClick={() => goBack()}
-				className="fixed sm:relative bg-transparen text-lg font-bold w-full text-left pl-3 py-2 z-10"
+				className="w-min p-1 pr-2 font-bold sm:text-lg sm:text-white sm:bg-blue-500 rounded-md"
 			>
 				{'<'}back
 			</button>
