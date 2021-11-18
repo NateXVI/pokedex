@@ -2,16 +2,15 @@ import Router from 'next/router';
 
 export default function BackButton() {
 	function goBack() {
-		console.log(sessionStorage.getItem('recent page'));
 		const page = sessionStorage.getItem('recent page') || 1;
 		Router.push(`/?page=${page}`);
 	}
 
 	return (
-		<div className="bg-none">
+		<div className="bg-none w-full">
 			<button
 				onClick={() => goBack()}
-				className="sm:bg-transparent bg-white text-lg font-bold "
+				className="sm:bg-transparent bg-white text-lg font-bold w-full text-left pl-3 py-2"
 			>
 				{'<'}back
 			</button>
