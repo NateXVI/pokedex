@@ -42,7 +42,9 @@ export function PageNavigator({ path, currentPage, maxPage }) {
 	function goTo(page) {
 		page = Math.max(1, page);
 		page = Math.min(maxPage, page);
-		if (process.browser) router.push(`${path}?page=${page}`);
+		if (process.browser) {
+			router.push(`${path}?page=${page}`);
+		}
 	}
 
 	return (
