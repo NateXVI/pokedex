@@ -10,7 +10,7 @@ export default function BackButton() {
 		<div className="bg-none w-full">
 			<button
 				onClick={() => goBack()}
-				className="sm:bg-transparent bg-white text-lg font-bold w-full text-left pl-3 py-2"
+				className="fixed sm:relative bg-transparen text-lg font-bold w-full text-left pl-3 py-2 z-10"
 			>
 				{'<'}back
 			</button>
