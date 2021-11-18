@@ -13,7 +13,6 @@ const totalPages = Math.ceil(totalItems / itemsPerPage);
 
 export default function Home({ pokemon, page, offset }) {
 	useEffect(() => {
-		if (pokemon == undefined) pokemon = {};
 		sessionStorage.setItem('recent page', page);
 	});
 
@@ -25,7 +24,7 @@ export default function Home({ pokemon, page, offset }) {
 				<PageSelector path="/" maxPage={totalPages} currentPage={page} />
 			</div>
 			<div className="container grid grid-cols-1 md:grid-cols-2">
-				<PokemonList pokemon={pokemon} offset={offset} />
+				{pokemon ? <PokemonList pokemon={pokemon} offset={offset} /> : <></>}
 			</div>
 			<div className="flex w-full justify-center">
 				<PageNavigator path="/" currentPage={page} maxPage={totalPages} />
