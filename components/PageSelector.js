@@ -26,7 +26,7 @@ export default function PageSelector({ path, maxPage, currentPage }) {
 	}
 
 	return (
-		<div className="mx-1 flex-none">
+		<div className="mx-1 flex-none h-8 sm:h-10">
 			<input
 				type="number"
 				min="1"
@@ -34,10 +34,10 @@ export default function PageSelector({ path, maxPage, currentPage }) {
 				value={pageInput}
 				onChange={(e) => setInput(e.target.value)}
 				onKeyDown={(e) => keyPressed(e)}
-				className="h-10 px-2 sm:px-4 rounded-l-md"
+				className="h-full px-2 sm:px-4 rounded-l-md"
 			/>
-			<button className="bg-blue-600 text-white h-10 w-16 rounded-r-md" onClick={goTo}>
-				Go To
+			<button className="bg-blue-600 text-white h-full w-8 rounded-r-md" onClick={goTo}>
+				Go
 			</button>
 		</div>
 	);
@@ -54,19 +54,21 @@ export function PageNavigator({ path, currentPage, maxPage }) {
 
 	return (
 		<div className="">
-			<div className="flex h-10">
+			<div className="flex h-8 sm:h-10">
 				<button
 					onClick={() => goTo(Number(currentPage) - 1)}
-					className={`${styles.button} rounded-l-md`}
+					className={`${styles.button} rounded-l-md h-full`}
 				>{`Back`}</button>
 
-				<div className="grid place-items-center h-10 bg-white">
-					<p className="px-1 bg-white sm:px-4 text-center">page {currentPage}</p>
+				<div className="grid place-items-center h-full bg-white">
+					<p className="px-1 bg-white sm:px-4 text-center">
+						<span className="hidden sm:inline">page</span> {currentPage}
+					</p>
 				</div>
 
 				<button
 					onClick={() => goTo(Number(currentPage) + 1)}
-					className={`${styles.button} rounded-r-md`}
+					className={`${styles.button} rounded-r-md h-full`}
 				>{`Next`}</button>
 			</div>
 		</div>
