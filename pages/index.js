@@ -3,7 +3,7 @@ import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import Layout from '../components/Layout';
 import Link from 'next/link';
-import PageSelector from '../components/PageSelector';
+import PageSelector, { PageNavigator } from '../components/PageSelector';
 import PokemonList from '../components/PokemonList';
 
 const itemsPerPage = 10;
@@ -13,12 +13,25 @@ const totalPages = Math.ceil(totalItems / itemsPerPage);
 export default function Home({ pokemon, page, offset }) {
 	return (
 		<Layout title="Pokedex">
-			<h1 className="text-4xl mb-8 text-center pt-20 pb-16">Next.js Pokedex</h1>
-			<PageSelector path="/" currentPage={page} maxPage={totalPages}></PageSelector>
+			<h1 className="text-4xl mb-8 text-center pt-20 pb-16">
+				Next.js Pokedex
+			</h1>
+			<div className="flex p-2 sm:p-1">
+				<PageNavigator
+					path="/"
+					currentPage={page}
+					maxPage={totalPages}
+				/>
+				<PageSelector
+					path="/"
+					maxPage={totalPages}
+					currentPage={page}
+				/>
+			</div>
 			<div className="container grid grid-cols-1 md:grid-cols-2">
 				<PokemonList pokemon={pokemon} offset={offset} />
 			</div>
-			<PageSelector path="/" currentPage={page} maxPage={totalPages}></PageSelector>
+			<PageNavigator path="/" currentPage={page} maxPage={totalPages} />
 			<footer className="w-full h-20"></footer>
 		</Layout>
 	);
