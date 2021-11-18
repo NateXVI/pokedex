@@ -24,6 +24,7 @@ export default function pokemon({ pokemon }) {
 				<title>
 					#{pokemon.id} - {pokemon.name}
 				</title>
+				<link rel="icon" href="/Ultra-Ball.ico"></link>
 			</Head>
 			<div className="container w-full mx-auto sm:max-w-xl pt-0 min-h-screen sm:pt-8">
 				<BackButton />
