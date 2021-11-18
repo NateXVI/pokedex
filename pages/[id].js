@@ -65,8 +65,18 @@ export async function getStaticProps({ params }) {
 }
 
 export function getStaticPaths() {
+	const paths = [];
+
+	for (let i = 1; i <= totalPages; i++) {
+		paths.push({
+			params: {
+				id: `${i}`,
+			},
+		});
+	}
+
 	return {
-		paths: [],
-		fallback: true,
+		paths,
+		fallback: false,
 	};
 }
