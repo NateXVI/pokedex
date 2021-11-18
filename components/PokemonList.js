@@ -79,7 +79,7 @@ function PokemonThumbnail({ pokemon }) {
 								<Fragment></Fragment>
 							)}
 							{!!!data ? (
-								<div>
+								<div className="pt-4">
 									<div className="m-2">
 										<RandomStatBar color="bg-green-500" />
 									</div>
@@ -91,6 +91,11 @@ function PokemonThumbnail({ pokemon }) {
 									</div>
 									<div className="m-2">
 										<RandomStatBar color="bg-yellow-500" />
+									</div>
+									<div className="h-full w-full grid grid-cols-3 mt-3 sm:pt-3.5 place-items-center">
+										<Stat icon="/icons/weight.png" value="0" />
+										<Stat icon="/icons/ruler.png" value="0" />
+										<Types types={[{ type: { name: 'normal' }, slot: 1 }]} />
 									</div>
 								</div>
 							) : (

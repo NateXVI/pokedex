@@ -24,7 +24,7 @@ export default function Home({ pokemon, page, offset }) {
 				<PageSelector path="/" maxPage={totalPages} currentPage={page} />
 			</div>
 			<div className="container grid grid-cols-1 md:grid-cols-2">
-				<PokemonList pokemon={pokemon} offset={offset} />
+				{pokemon ? <PokemonList pokemon={pokemon} offset={offset} /> : <></>}
 			</div>
 			<div className="flex w-full justify-center">
 				<PageNavigator path="/" currentPage={page} maxPage={totalPages} />
@@ -34,8 +34,8 @@ export default function Home({ pokemon, page, offset }) {
 	);
 }
 
-export async function getServerSideProps({ query }) {
-	let page = query.page || 1;
+export async function getStaticProps({ params }) {
+	let page = params.id || 1;
 	let offset = (page - 1) * itemsPerPage;
 	let pokemon = {};
 	try {
@@ -61,5 +61,22 @@ export async function getServerSideProps({ query }) {
 			page,
 			offset,
 		},
+	};
+}
+
+export function getStaticPaths() {
+	const paths = [];
+
+	for (let i = 1; i <= totalPages; i++) {
+		paths.push({
+			params: {
+				id: `${i}`,
+			},
+		});
+	}
+
+	return {
+		paths,
+		fallback: false,
 	};
 }
