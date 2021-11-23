@@ -87,8 +87,8 @@ export function getStaticPaths() {
 	}
 
 	return {
-		paths: [],
-		fallback: true,
+		paths,
+		fallback: false,
 	};
 }
 
