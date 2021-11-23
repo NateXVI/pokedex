@@ -24,7 +24,7 @@ function PokemonThumbnail({ pokemon }) {
 
 	return (
 		<div className="container">
-			<Link href={{ pathname: '/pokemon', query: { id: data?.id } }}>
+			<Link href={{ pathname: `/p/${data?.id}` }}>
 				<a>
 					<div className="m-2 bg-gray-200 p-4 rounded-md flex shadow-2xl">
 						<div className="w-52">

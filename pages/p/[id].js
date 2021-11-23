@@ -1,13 +1,10 @@
-import Layout from '../components/Layout';
-import Link from 'next/link';
-import styles from '../styles/pokemon.module.css';
-import Types from '../components/Types';
-import BaseStats from '../components/BaseStats';
+import Types from '../../components/Types';
+import BaseStats from '../../components/BaseStats';
 import Head from 'next/head';
-import Sprites from '../components/Sprites';
-import OtherStats from '../components/OtherStats';
-import GameCovers from '../components/GameCovers';
-import BackButton from '../components/BackButton';
+import Sprites from '../../components/Sprites';
+import OtherStats from '../../components/OtherStats';
+import GameCovers from '../../components/GameCovers';
+import BackButton from '../../components/BackButton';
 
 export default function pokemon({ pokemon }) {
 	const spritesSrc = Object.values(pokemon.sprites).filter((value) => {
@@ -36,14 +33,19 @@ export default function pokemon({ pokemon }) {
 					/>
 				</div>
 				<h1 className="sm:m-0 sm:w-full text-4xl mb-2 text-center capitalize p-1">
-					<span className="text-2xl text-gray-500 pr-px">#{pokemon.id}</span>
+					<span className="text-2xl text-gray-500 pr-px">
+						#{pokemon.id}
+					</span>
 					{capitalize(pokemon.name)}
 				</h1>
 				<Types types={pokemon.types} />
 				<div className="bg-gray-100 m-1 sm:p-2 rounded-md">
 					<BaseStats stats={pokemon.stats} />
 					<div className="h-1 w-full"></div>
-					<OtherStats weight={pokemon.weight} height={pokemon.height} />
+					<OtherStats
+						weight={pokemon.weight}
+						height={pokemon.height}
+					/>
 				</div>
 				<Sprites source={spritesSrc} />
 				<GameCovers games={games} />
@@ -53,8 +55,8 @@ export default function pokemon({ pokemon }) {
 	);
 }
 
-export async function getServerSideProps({ query }) {
-	const id = query.id;
+export async function getStaticProps({ params }) {
+	const id = params.id;
 	let pokemon = {};
 	try {
 		const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
@@ -70,6 +72,23 @@ export async function getServerSideProps({ query }) {
 		props: {
 			pokemon,
 		},
+	};
+}
+
+export function getStaticPaths() {
+	const paths = [];
+
+	for (let i = 1; i <= 898; i++) {
+		paths.push({
+			params: {
+				id: `${i}`,
+			},
+		});
+	}
+
+	return {
+		paths,
+		fallback: false,
 	};
 }
 
