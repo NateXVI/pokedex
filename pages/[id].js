@@ -6,6 +6,7 @@ import Link from 'next/link';
 import PageSelector, { PageNavigator } from '../components/PageSelector';
 import PokemonList from '../components/PokemonList';
 import { useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const itemsPerPage = 10;
 const totalItems = 898;
@@ -17,20 +18,40 @@ export default function Home({ pokemon, page, offset }) {
 	});
 
 	return (
-		<Layout title="Pokedex">
-			<h1 className="text-4xl mb-8 text-center pt-20 pb-16">Next.js Pokedex</h1>
-			<div className="flex justify-between p-2 sm:p-1 items-center">
-				<PageNavigator path="/" currentPage={page} maxPage={totalPages} />
-				<PageSelector path="/" maxPage={totalPages} currentPage={page} />
-			</div>
-			<div className="container grid grid-cols-1 md:grid-cols-2">
-				{pokemon ? <PokemonList pokemon={pokemon} offset={offset} /> : <></>}
-			</div>
-			<div className="flex w-full justify-center">
-				<PageNavigator path="/" currentPage={page} maxPage={totalPages} />
-			</div>
-			<footer className="w-full h-20"></footer>
-		</Layout>
+		<AnimatePresence>
+			<motion.div
+				initial={{ opacity: 0 }}
+				animate={{ opacity: 1 }}
+				exit={{ opacity: 0 }}
+			>
+				<Layout title="Pokedex">
+					<h1 className="text-4xl mb-8 text-center pt-20 pb-16">
+						Next.js Pokedex
+					</h1>
+					<div className="flex justify-between p-2 sm:p-1 items-center">
+						<PageNavigator path="/" currentPage={page} maxPage={totalPages} />
+						<PageSelector path="/" maxPage={totalPages} currentPage={page} />
+					</div>
+					<AnimatePresence>
+						<motion.div
+							className="container grid grid-cols-1 md:grid-cols-2"
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+						>
+							{pokemon ? (
+								<PokemonList pokemon={pokemon} offset={offset} />
+							) : (
+								<></>
+							)}
+						</motion.div>
+					</AnimatePresence>
+					<div className="flex w-full justify-center">
+						<PageNavigator path="/" currentPage={page} maxPage={totalPages} />
+					</div>
+					<footer className="w-full h-20"></footer>
+				</Layout>
+			</motion.div>
+		</AnimatePresence>
 	);
 }
 
