@@ -4,6 +4,7 @@ import BaseStats, { StatsBar } from './BaseStats';
 import Link from 'next/link';
 import Image from 'next/image';
 import Types from './Types';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function PokemonList({ pokemon, offset }) {
 	return (
@@ -11,7 +12,9 @@ export default function PokemonList({ pokemon, offset }) {
 			{pokemon.map((value, index) => {
 				const pokemonIndex = index + 1 + offset;
 				if (pokemonIndex > 898) return;
-				return <PokemonThumbnail pokemon={value} index={pokemonIndex} key={index} />;
+				return (
+					<PokemonThumbnail pokemon={value} index={pokemonIndex} key={index} />
+				);
 			})}
 		</Fragment>
 	);
@@ -22,16 +25,48 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json());
 function PokemonThumbnail({ pokemon }) {
 	const { data, error } = useSWR(pokemon.url, fetcher);
 
+	const variants = {
+		initial: {
+			scale: 1,
+			opacity: 1,
+		},
+		move: {
+			opacity: 0,
+			scale: [0.9, 0.9, 1.05, 1],
+		},
+		exit: {
+			scale: 0.9,
+		},
+		hover: {},
+		visible: {
+			opacity: 1,
+		},
+	};
+
 	return (
-		<div className="container">
+		<motion.div
+			className="container"
+			initial="initial"
+			animate="move"
+			exit="exit"
+			whileHover="hover"
+			whileInView="visible"
+			variants={variants}
+			key={pokemon.name}
+		>
 			<Link href={{ pathname: `/p/${data?.id}` }}>
 				<a>
 					<div className="m-2 bg-gray-200 p-4 rounded-md flex shadow-2xl">
 						<div className="w-52">
-							<img src={pokemon.image} className="h-20 w-20 sm:h-28 sm:w-28" />
+							<img
+								src={pokemon.image}
+								className="h-20 w-20 sm:h-28 sm:w-28"
+							/>
 							<div className="pt-4">
 								<p className="capitalize">
-									<span className="text-sm text-gray-500 pr-px">#{data?.id}</span>
+									<span className="text-sm text-gray-500 pr-px">
+										#{data?.id}
+									</span>
 									<span className="capitalize font-bold text-lg">
 										{capitalize(pokemon.name)}
 									</span>
@@ -65,13 +100,22 @@ function PokemonThumbnail({ pokemon }) {
 										}
 										return (
 											<div key={index} className="m-2">
-												<StatsBar color={color} percent={percent} />
+												<StatsBar
+													color={color}
+													percent={percent}
+												/>
 											</div>
 										);
 									})}
 									<div className="h-full w-full grid grid-cols-3 mt-3 sm:pt-3.5 place-items-center">
-										<Stat icon="/icons/weight.png" value={data.weight} />
-										<Stat icon="/icons/ruler.png" value={data.height} />
+										<Stat
+											icon="/icons/weight.png"
+											value={data.weight}
+										/>
+										<Stat
+											icon="/icons/ruler.png"
+											value={data.height}
+										/>
 										<Types types={data.types} />
 									</div>
 								</div>
@@ -95,7 +139,11 @@ function PokemonThumbnail({ pokemon }) {
 									<div className="h-full w-full grid grid-cols-3 mt-3 sm:pt-3.5 place-items-center">
 										<Stat icon="/icons/weight.png" value="0" />
 										<Stat icon="/icons/ruler.png" value="0" />
-										<Types types={[{ type: { name: 'normal' }, slot: 1 }]} />
+										<Types
+											types={[
+												{ type: { name: 'normal' }, slot: 1 },
+											]}
+										/>
 									</div>
 								</div>
 							) : (
@@ -105,7 +153,7 @@ function PokemonThumbnail({ pokemon }) {
 					</div>
 				</a>
 			</Link>
-		</div>
+		</motion.div>
 	);
 }
 

@@ -18,13 +18,14 @@ export default function Home({ pokemon, page, offset }) {
 	});
 
 	return (
-		<AnimatePresence>
-			<motion.div
-				initial={{ opacity: 0 }}
-				animate={{ opacity: 1 }}
-				exit={{ opacity: 0 }}
-			>
-				<Layout title="Pokedex">
+		<AnimatePresence exitBeforeEnter>
+			<Layout title="Pokedex">
+				<motion.div
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					exit={{ opacity: 0 }}
+					transition={{ duration: 1 }}
+				>
 					<h1 className="text-4xl mb-8 text-center pt-20 pb-16">
 						Next.js Pokedex
 					</h1>
@@ -35,8 +36,10 @@ export default function Home({ pokemon, page, offset }) {
 					<AnimatePresence>
 						<motion.div
 							className="container grid grid-cols-1 md:grid-cols-2"
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 1 }}
+							initial={{ opacity: 0, y: -10 }}
+							animate={{ opacity: 1, y: 0 }}
+							exit={{ opacity: 1, y: 10 }}
+							key={page}
 						>
 							{pokemon ? (
 								<PokemonList pokemon={pokemon} offset={offset} />
@@ -49,8 +52,8 @@ export default function Home({ pokemon, page, offset }) {
 						<PageNavigator path="/" currentPage={page} maxPage={totalPages} />
 					</div>
 					<footer className="w-full h-20"></footer>
-				</Layout>
-			</motion.div>
+				</motion.div>
+			</Layout>
 		</AnimatePresence>
 	);
 }
