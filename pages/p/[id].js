@@ -5,6 +5,7 @@ import Sprites from '../../components/Sprites';
 import OtherStats from '../../components/OtherStats';
 import GameCovers from '../../components/GameCovers';
 import BackButton from '../../components/BackButton';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function pokemon({ pokemon }) {
 	const spritesSrc = Object.values(pokemon.sprites).filter((value) => {
@@ -16,42 +17,48 @@ export default function pokemon({ pokemon }) {
 	});
 
 	return (
-		<div className="bg-gray-300">
-			<Head>
-				<title>
-					#{pokemon.id} - {pokemon.name}
-				</title>
-				<link rel="icon" href="/Ultra-Ball.ico"></link>
-			</Head>
-			<div className="container w-full mx-auto sm:max-w-xl pt-0 min-h-screen sm:pt-8">
-				<BackButton />
-				<div className="sm:bg-transparent bg-white container w-full sm:w-auto m-auto left-0 h-60 sm:h-auto ">
-					<img
-						className="m-auto rounded-3xl h-full object-cover sm:w-auto sm:bg-white sm:shadow-md"
-						src={pokemon.image}
-						alt={pokemon.name}
-					/>
-				</div>
-				<h1 className="sm:m-0 sm:w-full text-4xl mb-2 text-center capitalize p-1">
-					<span className="text-2xl text-gray-500 pr-px">
-						#{pokemon.id}
-					</span>
-					{capitalize(pokemon.name)}
-				</h1>
-				<Types types={pokemon.types} />
-				<div className="bg-gray-100 m-1 sm:p-2 rounded-md">
-					<BaseStats stats={pokemon.stats} />
-					<div className="h-1 w-full"></div>
-					<OtherStats
-						weight={pokemon.weight}
-						height={pokemon.height}
-					/>
-				</div>
-				<Sprites source={spritesSrc} />
-				<GameCovers games={games} />
-				<br />
+		<AnimatePresence>
+			<div className="bg-gray-300">
+				<motion.div
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					exit={{ opacity: 0 }}
+					transition={{ duration: 1 }}
+				>
+					<Head>
+						<title>
+							#{pokemon.id} - {pokemon.name}
+						</title>
+						<link rel="icon" href="/Ultra-Ball.ico"></link>
+					</Head>
+					<div className="container w-full mx-auto sm:max-w-xl pt-0 min-h-screen sm:pt-8">
+						<BackButton />
+						<div className="sm:bg-transparent bg-white container w-full sm:w-auto m-auto left-0 h-60 sm:h-auto ">
+							<img
+								className="m-auto rounded-3xl h-full object-cover sm:w-auto sm:bg-white sm:shadow-md"
+								src={pokemon.image}
+								alt={pokemon.name}
+							/>
+						</div>
+						<h1 className="sm:m-0 sm:w-full text-4xl mb-2 text-center capitalize p-1">
+							<span className="text-2xl text-gray-500 pr-px">
+								#{pokemon.id}
+							</span>
+							{capitalize(pokemon.name)}
+						</h1>
+						<Types types={pokemon.types} />
+						<div className="bg-gray-100 m-1 sm:p-2 rounded-md">
+							<BaseStats stats={pokemon.stats} />
+							<div className="h-1 w-full"></div>
+							<OtherStats weight={pokemon.weight} height={pokemon.height} />
+						</div>
+						<Sprites source={spritesSrc} />
+						<GameCovers games={games} />
+						<br />
+					</div>
+				</motion.div>
 			</div>
-		</div>
+		</AnimatePresence>
 	);
 }
 
